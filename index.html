@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Customers</h2>
+<form method="POST" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <input type="text" name="name" class="form-control" placeholder="Customer Name" required>
+        </div>
+        <div class="col-md-4">
+            <input type="text" name="phone" class="form-control" placeholder="Phone">
+        </div>
+        <div class="col-md-4">
+            <input type="text" name="address" class="form-control" placeholder="Address">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Add Customer</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.address }}</td>
+            <td>
+                <a href="{{ url_for('edit_customer', id=customer.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{{ url_for('delete_customer', id=customer.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this customer?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Invoices</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Invoice #</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for invoice in invoices %}
+        <tr>
+            <td>{{ invoice.invoice_number }}</td>
+            <td>{{ invoice.customer.name if invoice.customer else 'N/A' }}</td>
+            <td>{{ invoice.date_created.strftime('%Y-%m-%d') }}</td>
+            <td>${{ invoice.total }}</td>
+            <td>{{ invoice.status }}</td>
+            <td>
+                {% if invoice.status == 'Unpaid' %}
+                    <a href="{{ url_for('pay_invoice', id=invoice.id) }}" class="btn btn-sm btn-success">Mark Paid</a>
+                {% endif %}
+                <a href="{{ url_for('invoice_pdf', id=invoice.id) }}" class="btn btn-sm btn-primary">PDF</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
