@@ -1,3 +1,4 @@
+<a href="{{ url_for('delete_customer', id=customer.id) }}" class="btn btn-danger">Delete</a>
 <form method="POST" action="{{ url_for('edit_customer', id=customer.id) }}">
 {% extends "base.html" %}
 {% block content %}
@@ -43,3 +44,4 @@
 </table>
 
 {% endblock %}
+
